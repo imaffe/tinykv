@@ -3,13 +3,17 @@ package standalone_storage
 import (
 	"github.com/pingcap-incubator/tinykv/kv/config"
 	"github.com/pingcap-incubator/tinykv/kv/storage"
+	"github.com/pingcap-incubator/tinykv/kv/util/engine_util"
 	"github.com/pingcap-incubator/tinykv/proto/pkg/kvrpcpb"
+	badger "github.com/dgraph-io/badger/v2"
 )
 
 // StandAloneStorage is an implementation of `Storage` for a single-node TinyKV instance. It does not
 // communicate with other nodes and all data is stored locally.
 type StandAloneStorage struct {
 	// Your Data Here (1).
+	StorageRootDir string
+
 }
 
 func NewStandAloneStorage(conf *config.Config) *StandAloneStorage {
@@ -35,4 +39,18 @@ func (s *StandAloneStorage) Reader(ctx *kvrpcpb.Context) (storage.StorageReader,
 func (s *StandAloneStorage) Write(ctx *kvrpcpb.Context, batch []storage.Modify) error {
 	// Your Code Here (1).
 	return nil
+}
+
+type StandAloneStorageReader struct {
+
+}
+
+func (sr *StandAloneStorageReader) GetCF(cf string, key []byte) ([]byte, error) {
+
+}
+func (sr *StandAloneStorageReader) IterCF(cf string) engine_util.DBIterator {
+
+}
+func (sr *StandAloneStorageReader) Close() {
+
 }
